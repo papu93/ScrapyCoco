@@ -66,15 +66,17 @@ DEFAULT_REQUEST_HEADERS = {
 #EXTENSIONS = {
 #    'scrapy.telnet.TelnetConsole': None,
 #}
-
+'''
 MONGO_URI='127.0.0.1'
 MONGO_DATABASE='ScrapyCocoProviders'
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'ScrapyCocoProviders.pipelines.MongoPipeline': 300,
+  # 'ScrapyCocoProviders.pipelines.MongoPipeline': 300,
+   # 'ScrapyCocoProviders.pipelines.Mercado':400
 }
+'''
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

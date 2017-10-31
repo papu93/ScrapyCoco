@@ -1,25 +1,37 @@
-import pymongo
-
-class MongoPipeline(object):
-    def __init__(self, mongo_uri, mongo_db):
-        self.mongo_uri = mongo_uri
-        self.mongo_db = mongo_db
-
+#from scrapy import signals
+'''
+class Mercado(object):
     @classmethod
     def from_crawler(cls, crawler):
-        return cls(
-            mongo_uri=crawler.settings.get('MONGO_URI'),
-            mongo_db=crawler.settings.get('MONGO_DATABASE', 'items')
-        )
+        pipeline = cls()
+        crawler.signals.connect(pipeline.spider_opened, signals.spider_opened)
+        crawler.signals.connect(pipeline.spider_closed, signals.spider_closed)
+        return pipeline
 
-    def open_spider(self, spider):
-        self.collection_name = spider.name
-        self.client = pymongo.MongoClient(self.mongo_uri)
-        self.db = self.client[self.mongo_db]
+    def spider_opened(self, spider):
+        #file = open('%s_items.csv' % spider.name, 'w+b')
+        #self.files[spider] = file
+        self.exporter = CsvItemExporter(file)
+        self.exporter.fields_to_export = ['seller_name', 'seller_URL', 'sales_amount', 'seller_category',
+                                          'location',
+                                          'buyers_feedback_amount', 'good_qualification', 'neutral_qualification',
+                                          'bad_qualification']
+        self.exporter.start_exporting()
 
-    def close_spider(self, spider):
+
+    def spider_closed(self, spider):
+        #self.exporter.finish_exporting()
+        #file = self.files.pop(spider)
+        #file.close()
+
         self.client.close()
 
     def process_item(self, item, spider):
-        self.db[self.collection_name].insert(dict(item))
+        #self.db[self.collection_name].insert(dict(item))
+        #print('insertando')
+        #self.files.append(item)
+        #self.files['sellers'].insert(0, item)
+        #print('ya inserto')
+        #self.exporter.export_item(item)
         return item
+'''
