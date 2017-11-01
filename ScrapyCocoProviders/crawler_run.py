@@ -5,18 +5,22 @@ from scrapy.utils.project import get_project_settings
 from ScrapyCocoProviders.spiders.spider import MercadoSpider
 import json
 
-class ScrapyCocoProviders():
-    def __init__(self, product):
+
+class ScrapyCocoProviders:
+
+    def __init__(self, product, max_items=20):
         ''' Constructor for this class. '''
         self.product = product
+        self.max_items = max_items
 
     def run_mercado_libre(self):
         MercadoSpider.name = self.product
         MercadoSpider.allowed_domain = ['www.mercadolibre.com.ar']
-        MercadoSpider.start_urls = ['http://listado.mercadolibre.com.ar/' + self.product + '_BestSellers_YES']
+        MercadoSpider.start_urls = ['http://listado.mercadolibre.com.ar/' + self.product + '_ItemTypeID_N_BestSellers_YES']
+        MercadoSpider.max_items = self.max_items
         self.run(MercadoSpider)
 
-    def run(self,spider):
+    def run(self, spider):
         configure_logging()
         runner = CrawlerRunner(get_project_settings())
 

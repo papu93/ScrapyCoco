@@ -23,7 +23,7 @@ class MercadoSpider(scrapy.Spider):
         return Request(response.urljoin(seller_link), callback=self.parse_seller)
 
     def parse_seller(self, response):
-        if self.item_count < 20:
+        if self.item_count < self.max_items:
             ml_item = MercadoItem()
             ml_item['seller_name'] = response.xpath('normalize-space(//h3[@id="store-info__name"]/text())').extract_first()
             ml_item['seller_URL'] = response.url

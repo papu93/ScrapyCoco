@@ -108,14 +108,4 @@ venv.bak/
 
 \.idea/workspace\.xml
 
-ScrapyCocoProviders/__init__\.pyc
-
-ScrapyCocoProviders/crawler_run\.pyc
-
-ScrapyCocoProviders/items\.pyc
-
-ScrapyCocoProviders/settings\.pyc
-
-ScrapyCocoProviders/spiders/__init__\.pyc
-
-ScrapyCocoProviders/spiders/spider\.pyc
+*.pyc
