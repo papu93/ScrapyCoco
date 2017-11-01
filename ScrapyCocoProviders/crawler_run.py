@@ -29,5 +29,7 @@ class ScrapyCocoProviders():
         reactor.run()
 
     def get_results(self):
-        return MercadoSpider.results
+        dict = {}
+        dict['results'] = MercadoSpider.results
+        return json.dumps(dict, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
