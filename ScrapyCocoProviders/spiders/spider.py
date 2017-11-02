@@ -3,6 +3,7 @@ import scrapy
 from scrapy.exceptions import CloseSpider
 from ..items import MercadoItem
 from scrapy import Request
+import unicodedata
 
 
 class MercadoSpider(scrapy.Spider):
@@ -26,12 +27,19 @@ class MercadoSpider(scrapy.Spider):
         if self.item_count < self.max_items:
             ml_item = MercadoItem()
             ml_item['seller_name'] = response.xpath('normalize-space(//h3[@id="store-info__name"]/text())').extract_first()
+            ml_item['seller_name'] = unicodedata.normalize('NFKD', ml_item['seller_name']).encode('ascii', 'ignore')
+
             ml_item['seller_URL'] = response.url
             aux = (response.xpath('normalize-space(//p[@class="sales-amount"]/text())').extract_first()).split(" ")[0]
             ml_item['sales_amount'] = self.convert_to_number(aux)
+
             ml_item['seller_category'] = (response.xpath('normalize-space(//p[@class="leader-status__message"]/text())').extract_first()).split(",")[0]
+            ml_item['seller_category'] = unicodedata.normalize('NFKD', ml_item['seller_category']).encode('ascii', 'ignore')
+
             ml_item['location'] = response.xpath(
                 'normalize-space(//p[@class="location__description"]/text())').extract_first()
+            ml_item['location'] = unicodedata.normalize('NFKD', ml_item['location']).encode('ascii', 'ignore')
+
             ml_item['buyers_feedback_amount'] = response.xpath(
                 'normalize-space(//span[@class="total"]/text())').extract_first()
             ml_item['good_qualification'] = response.xpath(

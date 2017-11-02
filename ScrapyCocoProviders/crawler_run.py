@@ -2,7 +2,7 @@ from twisted.internet import reactor, defer
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 from scrapy.utils.project import get_project_settings
-from ScrapyCocoProviders.spiders.spider import MercadoSpider
+from spiders.spider import MercadoSpider
 import json
 
 
