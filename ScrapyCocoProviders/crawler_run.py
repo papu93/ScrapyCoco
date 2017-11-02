@@ -19,6 +19,7 @@ class ScrapyCocoProviders:
         MercadoSpider.start_urls = ['http://listado.mercadolibre.com.ar/' + self.product + '_ItemTypeID_N_BestSellers_YES']
         MercadoSpider.max_items = self.max_items
         self.run(MercadoSpider)
+        return self.get_results()
 
     def run(self, spider):
         configure_logging()
